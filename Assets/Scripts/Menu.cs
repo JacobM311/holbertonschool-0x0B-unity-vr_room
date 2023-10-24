@@ -14,6 +14,7 @@ public class Menu : MonoBehaviour
     public List<GameObject> teleportationObjects = new List<GameObject>();
     public List<GameObject> continuousObjects = new List<GameObject>();
     public GameObject menu;
+    public GameObject Vignette;
     public Transform playerHead;
     public float spawnDistance = 1;
     public float menuMoveSpeed = 5.0f;
@@ -28,12 +29,10 @@ public class Menu : MonoBehaviour
     void Update()
     {
         Vector3 targetPosition = playerHead.position + playerHead.forward.normalized * spawnDistance;
-        targetPosition.y = menu.transform.position.y; // Keep the same height as the player's head.
+        targetPosition.y = menu.transform.position.y;
 
-        // Use Lerp to smoothly interpolate between the current position and the target position.
         menu.transform.position = Vector3.Lerp(menu.transform.position, targetPosition, Time.deltaTime * menuMoveSpeed);
 
-        // Look at the player's head position.
         menu.transform.LookAt(new Vector3(playerHead.position.x, menu.transform.position.y, playerHead.position.z));
         menu.transform.forward *= -1;
     }
@@ -54,7 +53,6 @@ public class Menu : MonoBehaviour
             }
             menu.SetActive(true);
             Time.timeScale = 0;
-            Debug.Log("PAUSED");
         }
         else
         {
@@ -68,7 +66,6 @@ public class Menu : MonoBehaviour
             }
             menu.SetActive(false);
             Time.timeScale = 1;
-            Debug.Log("UNPAUSED");
         }
     }
 
@@ -82,7 +79,6 @@ public class Menu : MonoBehaviour
         {
             obj.SetActive(false);
         }
-        Debug.Log("tele on");
     }
 
     public void TurnOnContinuous()
@@ -95,6 +91,6 @@ public class Menu : MonoBehaviour
         {
             obj.SetActive(false);
         }
-        Debug.Log("cont on");
     }
+
 }
